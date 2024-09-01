@@ -8,7 +8,7 @@ yum install -y yum-uitls device-mapper-persistent-data lvm2
 echo 'Install started...'
 
 # 安装docker
-curl https://download.docker.com/linux/centos/docker-ce.repo -o /etc/yum.repos.d/docker-ce.repo
+curl https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo -o /etc/yum.repos.d/docker-ce.repo
 yum install -y docker-ce
 
 # 启动docker
@@ -19,7 +19,7 @@ systemctl start docker
 [ -f /etc/docker/daemon.json ] || touch /etc/docker/daemon.json
 cat >>/etc/docker/daemon.json <<EOF
 {
-"registry-mirrors": ["https://gdhauhuq.mirror.aliyuncs.com"],
+"registry-mirrors": ["https://mirror.ccs.tencentyun.com"],
 "log-driver":"json-file",
 "log-opts":{"max-size" :"1000m","max-file":"5"}
 }
@@ -30,7 +30,7 @@ systemctl daemon-reload
 systemctl restart docker
 
 # 安装docker-compose
-curl -L https://get.daocloud.io/docker/compose/releases/download/1.25.5/docker-compose-$(uname -s)-$(uname -m) >/usr/local/bin/docker-compose
+curl -L https://github.com/docker/compose/releases/download/1.27.4/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
 chmod +x /usr/local/bin/docker-compose
 
 # 查看版本信息
